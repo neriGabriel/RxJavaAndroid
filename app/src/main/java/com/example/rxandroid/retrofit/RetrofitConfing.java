@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfing {
     private final Retrofit retrofit;
-    private String baseURL = "";
+    private String baseURL = "https://api.mars.spacexcompanion.app/v1/";
 
     public RetrofitConfing() {
 
@@ -18,5 +18,9 @@ public class RetrofitConfing {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
+    }
+
+    public MarsApi getMarsApi() {
+        return this.retrofit.create(MarsApi.class);
     }
 }
