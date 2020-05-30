@@ -1,8 +1,4 @@
 package com.example.rxandroid.viewmodel;
-
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -11,7 +7,6 @@ import com.example.rxandroid.model.Mars;
 import com.example.rxandroid.model.MarsPhoto;
 import com.example.rxandroid.retrofit.MarsApi;
 import com.example.rxandroid.retrofit.PhotoApi;
-import com.example.rxandroid.retrofit.RetrofitConfing;
 
 import javax.inject.Inject;
 

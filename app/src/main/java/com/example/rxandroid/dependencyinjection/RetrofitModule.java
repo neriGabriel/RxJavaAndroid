@@ -1,7 +1,6 @@
 package com.example.rxandroid.dependencyinjection;
 
 import com.example.rxandroid.retrofit.MarsApi;
-import com.example.rxandroid.retrofit.RetrofitConfing;
 
 import dagger.Module;
 import dagger.Provides;
