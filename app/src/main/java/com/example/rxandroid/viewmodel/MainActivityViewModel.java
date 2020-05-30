@@ -63,11 +63,6 @@ public class MainActivityViewModel extends ViewModel {
                 .getLatestsPhotos("2020-5-29", "fhaz")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<MarsPhoto>() {
-                    @Override
-                    public void accept(MarsPhoto marsPhoto) throws Throwable {
-                        marsPhotoMutableLiveData.setValue(marsPhoto);
-                    }
-                });
+                .subscribe(marsPhoto -> marsPhotoMutableLiveData.setValue(marsPhoto));
     }
 }

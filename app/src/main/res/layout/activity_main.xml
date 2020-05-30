@@ -11,7 +11,7 @@
 
         <variable
             name="marsPhotos"
-            type="com.example.rxandroid.model.MarsPhoto" />
+            type="com.example.rxandroid.model.MarsPhoto.Photo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,13 +23,13 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            android:imageUrl="@{marsPhotos.img_src}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

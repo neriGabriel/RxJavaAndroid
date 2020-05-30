@@ -15,6 +15,7 @@ import com.example.rxandroid.R;
 import com.example.rxandroid.databinding.ActivityMainBinding;
 import com.example.rxandroid.model.Mars;
 import com.example.rxandroid.model.MarsPhoto;
+import com.example.rxandroid.util.ImageUtil;
 import com.example.rxandroid.viewmodel.MainActivityViewModel;
 
 import java.util.Random;
@@ -55,21 +56,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reciveMarsPhoto() {
-        this.mainActivityViewModel.marsPhotoMutableLiveData.observe(this, new Observer<MarsPhoto>() {
-            @Override
-            public void onChanged(MarsPhoto marsPhoto) {
+        this.mainActivityViewModel.marsPhotoMutableLiveData.observe(this, marsPhoto -> {
                 Random random = new Random();
                 int randomNumber = random.nextInt(marsPhoto.getPhotos().size());
-                //Esquema de espera enquanto carrega
-                RequestOptions requestOptions = new RequestOptions()
-                        .placeholder(android.R.drawable.btn_plus)
-                        .fitCenter();
-
-                Glide.with(getApplicationContext())
-                        .setDefaultRequestOptions(requestOptions)
-                        .load(marsPhoto.getPhotos().get(randomNumber).getImg_src())
-                        .into(activityMainBinding.imageView);
-            }
+                //seto o método no xml, que irá automaticamente executar o @BindingAdapter
+                activityMainBinding.setMarsPhotos(marsPhoto.getPhotos().get(randomNumber));
         });
     }
 }
