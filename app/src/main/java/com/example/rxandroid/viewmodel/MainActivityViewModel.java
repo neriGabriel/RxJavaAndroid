@@ -6,9 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.rxandroid.dependencyinjection.DaggerRetrofitComponent;
 import com.example.rxandroid.model.Mars;
 import com.example.rxandroid.model.MarsPhoto;
+import com.example.rxandroid.retrofit.MarsApi;
+import com.example.rxandroid.retrofit.PhotoApi;
 import com.example.rxandroid.retrofit.RetrofitConfing;
+
+import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
@@ -20,18 +25,17 @@ public class MainActivityViewModel extends ViewModel {
     public MutableLiveData<Mars> marsMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<MarsPhoto> marsPhotoMutableLiveData = new MutableLiveData<>();
 
-    private RetrofitConfing retrofitConfing;
-    private RetrofitConfing retrofitConfingPhoto;
+    @Inject
+    public MarsApi marsApi;
+    @Inject
+    public PhotoApi photoApi;
 
     public MainActivityViewModel() {
-        this.retrofitConfing = new RetrofitConfing(false);
-        this.retrofitConfingPhoto = new RetrofitConfing(true);
+       DaggerRetrofitComponent.create().inject(this);
     }
 
     public void getLatestMarsWheater() {
-        this.retrofitConfing.getMarsApi()
-
-                .getLatestUpdate()
+        this.marsApi.getLatestUpdate()
 
                 //PARA NÃO RODAR NA MAIN THREAD SENÃO DA B.O DE MAIN THREA || faço inscriçam em uma thread || inscreve uma nova thread
                 .subscribeOn(Schedulers.newThread())
@@ -59,7 +63,7 @@ public class MainActivityViewModel extends ViewModel {
     }
 
     public void getMarsPhoto(){
-        this.retrofitConfingPhoto.getPhotoApi()
+        this.photoApi
                 .getLatestsPhotos("2020-5-29", "fhaz")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
