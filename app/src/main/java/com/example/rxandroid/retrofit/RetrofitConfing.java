@@ -9,12 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfing {
     private final Retrofit retrofit;
-    private String baseURL = "https://api.mars.spacexcompanion.app/v1/";
+    private String marsBaseURL  = "https://api.mars.spacexcompanion.app/v1/";
+    private String photoBaseURL = "http://mars-photos.herokuapp.com/api/v1/";
 
-    public RetrofitConfing() {
+    public RetrofitConfing(boolean isPhoto) {
 
         this.retrofit = new Retrofit.Builder()
-                .baseUrl(this.baseURL)
+                .baseUrl( isPhoto ? this.photoBaseURL : this.marsBaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
@@ -22,5 +23,9 @@ public class RetrofitConfing {
 
     public MarsApi getMarsApi() {
         return this.retrofit.create(MarsApi.class);
+    }
+
+    public PhotoApi getPhotoApi() {
+        return this.retrofit.create(PhotoApi.class);
     }
 }
